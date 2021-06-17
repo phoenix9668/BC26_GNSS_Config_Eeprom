@@ -54,7 +54,7 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-#define _NBIOT_SET_DEVINFO_USART 0
+#define _NBIOT_SET_DEVINFO_USART 1
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -105,7 +105,6 @@ void Error_Handler(void);
 /* USER CODE BEGIN Private defines */
 void System_Initial(void);
 void Show_Message(void);
-void Init_All_UART(void);
 void DATAEEPROM_Program(uint32_t Address, uint32_t Data);
 uint32_t DATAEEPROM_Read(uint32_t Address);
 int32_t STM32_SHA256_HMAC_Compute(uint8_t* InputMessage,

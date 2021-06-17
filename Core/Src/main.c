@@ -112,11 +112,16 @@ int main(void)
   while (1)
   {
 		LL_IWDG_ReloadCounter(IWDG);
-		#if (_NBIOT_SET_DEVINFO_USART == 0)
+		#if (_NBIOT_SET_DEVINFO_USART == 1)
+		gps_init(&gps);
+    gps_delay(100);
+		set_deviceInfo();
+		memset(gps.rxBuffer,0,sizeof(gps.rxBuffer));
+		gps.rxCounter = 0x00;
+		gps.rxIndex = false;
+		#endif
 		if (lptim.wakeupIndex == SET)
 		{
-		#endif
-			Init_All_UART();
 			if (transProcessNum == 0){
 				adc_process();
 				gps_process();
@@ -124,12 +129,9 @@ int main(void)
 			gnss_status.gnss_data_ready = true;
 			transProcessNum ++;
 			lptim.wakeupIndex = RESET;
-		#if (_NBIOT_SET_DEVINFO_USART == 0)
 		}
-		#endif
 		if (freeFallDetection == SET)
 		{
-			Init_All_UART();
 			if (transProcessNum == 0){
 				adc_process();
 				gps_process();
@@ -140,7 +142,6 @@ int main(void)
 		}
 		if (lptim.twoHourIndex == SET)
 		{
-			Init_All_UART();
 			if (transProcessNum == 0)
 				adc_process();
 			pregant_status.pregnant_data_ready = true;
@@ -211,20 +212,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		LL_IWDG_ReloadCounter(IWDG);
-		if(transProcessNum == 0 && step.stepState == RESET && lptim.wakeupIndex == RESET && lptim.twoHourIndex == RESET && freeFallDetection == RESET && lptim.twentyMinuteIndex == RESET)
-		{
-			MX_SPI1_DeInit();
-			MX_LPUART1_UART_DeInit();
-			MX_USART1_UART_DeInit();
-			gps_usart_deinit();
-			HAL_SuspendTick();
-			SystemPower_Config();
-			/* Enter Stop Mode */
-			HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
-			SystemClock_Config();
-			HAL_ResumeTick();
-		}
   }
   /* USER CODE END 3 */
 }
@@ -427,15 +414,6 @@ void Show_Message(void)
 		led_off();
 	}
 	nbiot_printf("Version ID: %x\n",ReadValueTemp);									//send via UART
-}
-
-void Init_All_UART(void)
-{
-	MX_DMA_Init();
-	MX_LPUART1_UART_Init();
-	Enable_LPUART1();
-	SET_MX_USART1_BaudRate_115200();
-	gps_usart_init();
 }
 
 /**

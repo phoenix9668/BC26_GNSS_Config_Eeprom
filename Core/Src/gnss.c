@@ -92,7 +92,7 @@ void gps_init(gps_t *gps)
 {
 	memset(gps,0,sizeof(*gps));
 	gps->rxIndex = false;
-	nbiot_printf("[GPS] init done\r\n");
+//	nbiot_printf("[GPS] init done\r\n");
 }
 //##################################################################################################################
 void gps_deinit(gps_t *gps)
@@ -381,10 +381,6 @@ void gps_loop(void)
 	{
 		nbiot_printf("rxBuffer = %s\n", gps.rxBuffer);
 		nbiot_printf("rxCounter = %d\n", gps.rxCounter);
-		#if (_NBIOT_SET_DEVINFO_USART == 1)
-		if (set_deviceInfo() == true)
-			dmp_mqttConParmGenerate();
-		#endif
 		rmc_parser();
 		gga_parser();
 		memset(gps.rxBuffer,0,sizeof(gps.rxBuffer));
@@ -437,8 +433,8 @@ bool set_deviceInfo(void)
 		memset(strfound, 0, sizeof(strfound));
 		strfoundsize = gps.rxCounter-2;
 		strncpy(strfound, str, strfoundsize);
-		nbiot_printf("strfoundsize: %d", strfoundsize);
-		nbiot_printf("found str: %s\n", strfound);
+//		nbiot_printf("strfoundsize: %d\n", strfoundsize);
+//		nbiot_printf("found str: %s\n", strfound);
 	}
 	else
 		return false;

@@ -8,7 +8,7 @@
 #define _NBIOT_RST_GPIO                   RESET_GPIO_Port
 #define _NBIOT_RST_PIN                    RESET_Pin
 
-#define _NBIOT_DEBUG                      0       //  use printf debug
+#define _NBIOT_DEBUG                      1       //  use printf debug
 /*
  *	0 : use LPUART1 LL to printf
  *	1 : use USART1 LL to printf
