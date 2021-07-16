@@ -341,6 +341,7 @@ void System_Initial(void)
   __CRC_CLK_ENABLE();
 	/*##-5- printf open message,judge ADXL362 stutes ##*/
 	Show_Message();
+	dmp_mqttTriadsInit();
 	
 	/*##-6- initial struct nbiot ##*/
 	memset(&gnss_status, 0, sizeof(gnss_status));
