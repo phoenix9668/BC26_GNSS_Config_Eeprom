@@ -281,18 +281,18 @@ void ADXL362FifoProcess(void)
 		if (xAxis[maxIndex] <= -400 || xAxis[maxIndex] >= 400 || yAxis[maxIndex] <= -400 || yAxis[maxIndex] >= 400)
 		{
 		  step.stepNum++;
-			nbiot_printf("stepNum = %d\n", step.stepNum);
+//			nbiot_printf("stepNum = %d\n", step.stepNum);
 		}
 
 		if ((step.acc.accIndex <= 511) && (fifo[maxIndex*8+5] != 0))
 		{
 			step.acc.accArray[step.acc.accIndex*3] = (uint16_t)(0x00ff & fifo[maxIndex*8+2]) + (uint16_t)(0xff00 & fifo[maxIndex*8+3]<<8);
-			nbiot_printf("accelerometerArray[%d] = %d, %x\n", step.acc.accIndex*3, step.acc.accArray[step.acc.accIndex*3], step.acc.accArray[step.acc.accIndex*3]);
+//			nbiot_printf("accelerometerArray[%d] = %d, %x\n", step.acc.accIndex*3, step.acc.accArray[step.acc.accIndex*3], step.acc.accArray[step.acc.accIndex*3]);
 			step.acc.accArray[step.acc.accIndex*3+1] = (uint16_t)(0x00ff & fifo[maxIndex*8+4]) + (uint16_t)(0xff00 & fifo[maxIndex*8+5]<<8);
-			nbiot_printf("accelerometerArray[%d] = %d, %x\n", step.acc.accIndex*3+1, step.acc.accArray[step.acc.accIndex*3+1], step.acc.accArray[step.acc.accIndex*3+1]);
+//			nbiot_printf("accelerometerArray[%d] = %d, %x\n", step.acc.accIndex*3+1, step.acc.accArray[step.acc.accIndex*3+1], step.acc.accArray[step.acc.accIndex*3+1]);
 			GetRTC(&UTC_Time, &UTC_Date);
 			step.acc.accArray[step.acc.accIndex*3+2] = (uint16_t)(0x00ff & UTC_Time.Minutes) + (uint16_t)(0xff00 & UTC_Time.Hours<<8);
-			nbiot_printf("accelerometerArray[%d] = %d, %x\n", step.acc.accIndex*3+2, step.acc.accArray[step.acc.accIndex*3+2], step.acc.accArray[step.acc.accIndex*3+2]);
+//			nbiot_printf("accelerometerArray[%d] = %d, %x\n", step.acc.accIndex*3+2, step.acc.accArray[step.acc.accIndex*3+2], step.acc.accArray[step.acc.accIndex*3+2]);
 		}
 		
     step.acc.accIndex++;
@@ -317,7 +317,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_THRESH_ACT_L,0x2C);						//set active threshold equip 300mg
 		ReadValueTemp = ADXL362RegisterRead(XL362_THRESH_ACT_L);
-		nbiot_printf("THRESH_ACT_L: %x\n",ReadValueTemp);
+//		nbiot_printf("THRESH_ACT_L: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x2C){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -325,7 +325,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_THRESH_ACT_H,0x01);
 		ReadValueTemp = ADXL362RegisterRead(XL362_THRESH_ACT_H);
-		nbiot_printf("THRESH_ACT_H: %x\n",ReadValueTemp);
+//		nbiot_printf("THRESH_ACT_H: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x01){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -333,7 +333,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_TIME_ACT,0x2D);						//set active time equip 45/200s
 		ReadValueTemp = ADXL362RegisterRead(XL362_TIME_ACT);
-		nbiot_printf("TIME_ACT: %x\n",ReadValueTemp);
+//		nbiot_printf("TIME_ACT: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x2D){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -341,7 +341,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_THRESH_INACT_L,0x2C);					//set inactive threshold equip 300mg
 		ReadValueTemp = ADXL362RegisterRead(XL362_THRESH_INACT_L);
-		nbiot_printf("THRESH_INACT_L: %x\n",ReadValueTemp);
+//		nbiot_printf("THRESH_INACT_L: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x2C){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -349,7 +349,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_THRESH_INACT_H,0x01);
 		ReadValueTemp = ADXL362RegisterRead(XL362_THRESH_INACT_H);
-		nbiot_printf("THRESH_INACT_H: %x\n",ReadValueTemp);
+//		nbiot_printf("THRESH_INACT_H: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x01){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -357,7 +357,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_TIME_INACT_L,0x18);						//set inactive time equip 24/200s
 		ReadValueTemp = ADXL362RegisterRead(XL362_TIME_INACT_L);
-		nbiot_printf("TIME_INACT_L: %x\n",ReadValueTemp);
+//		nbiot_printf("TIME_INACT_L: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x18){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -365,7 +365,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_TIME_INACT_H,0x00);
 		ReadValueTemp = ADXL362RegisterRead(XL362_TIME_INACT_H);
-		nbiot_printf("TIME_INACT_H: %x\n",ReadValueTemp);
+//		nbiot_printf("TIME_INACT_H: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x00){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -373,7 +373,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_ACT_INACT_CTL,0x07);						//configure default mode,enable active and inactive
 		ReadValueTemp = ADXL362RegisterRead(XL362_ACT_INACT_CTL);
-		nbiot_printf("ACT_INACT_CTL: %x\n",ReadValueTemp);
+//		nbiot_printf("ACT_INACT_CTL: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x07){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -381,7 +381,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_INTMAP1,0x10);									//configure act map INT1
 		ReadValueTemp = ADXL362RegisterRead(XL362_INTMAP1);
-		nbiot_printf("INTMAP1: %x\n",ReadValueTemp);
+//		nbiot_printf("INTMAP1: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x10){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -389,7 +389,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_INTMAP2,0x20);									//configure inact map INT2
 		ReadValueTemp = ADXL362RegisterRead(XL362_INTMAP2);
-		nbiot_printf("INTMAP2: %x\n",ReadValueTemp);
+//		nbiot_printf("INTMAP2: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x20){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -397,7 +397,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_FIFO_CONTROL,0x0E);						//select fifo Stream mode,Store Temperature Data to FIFO
 		ReadValueTemp = ADXL362RegisterRead(XL362_FIFO_CONTROL);
-		nbiot_printf("FIFO_CONTROL: %x\n",ReadValueTemp);
+//		nbiot_printf("FIFO_CONTROL: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x0E){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -405,7 +405,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_FIFO_SAMPLES,0xFF);						//select fifo sample number//0xFF
 		ReadValueTemp = ADXL362RegisterRead(XL362_FIFO_SAMPLES);
-		nbiot_printf("FIFO_SAMPLES: %x\n",ReadValueTemp);
+//		nbiot_printf("FIFO_SAMPLES: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0xFF){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -413,7 +413,7 @@ void ADXL362_Init(void)
 
 		ADXL362RegisterWrite(XL362_FILTER_CTL,0x14);             	//select 2g range,ODR:200Hz
 		ReadValueTemp = ADXL362RegisterRead(XL362_FILTER_CTL);
-		nbiot_printf("FILTER_CTL: %x\n",ReadValueTemp);
+//		nbiot_printf("FILTER_CTL: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x14){
 			ErrorIndex = 0x03;
 			Error_Handler();
@@ -421,7 +421,7 @@ void ADXL362_Init(void)
     //any changes to the registers before the POWER_CTL register (Register 0x00 to Register 0x2C) should be made with the device in standby
     ADXL362RegisterWrite(XL362_POWER_CTL,0x02);              	//select measurement mode
 		ReadValueTemp = ADXL362RegisterRead(XL362_POWER_CTL);
-		nbiot_printf("POWER_CTL: %x\n",ReadValueTemp);
+//		nbiot_printf("POWER_CTL: %x\n",ReadValueTemp);
 		if(ReadValueTemp != 0x02){
 			ErrorIndex = 0x03;
 			Error_Handler();

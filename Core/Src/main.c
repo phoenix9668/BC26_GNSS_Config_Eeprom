@@ -119,6 +119,7 @@ int main(void)
 		memset(gps.rxBuffer,0,sizeof(gps.rxBuffer));
 		gps.rxCounter = 0x00;
 		gps.rxIndex = false;
+		led_tog();
 		#endif
 		if (lptim.wakeupIndex == SET)
 		{
@@ -415,6 +416,7 @@ void Show_Message(void)
 		led_off();
 	}
 	nbiot_printf("Version ID: %x\n",ReadValueTemp);									//send via UART
+	nbiot_delay(1000);
 }
 
 /**
